@@ -3,18 +3,18 @@ cuda: True
 num_workers: 8
 
 dataset:
-    name: 'CfosDataset'
-    common_kwargs:
-        image_size: (2048, 2048)
+    name: 'CoughDataset'
+    #common_kwargs:
+        #image_size: (2048, 2048)
     train_kwargs:
         transform: 'train'
-        txt: 'train.txt'   
-    valid_kwargs:
-        transform: 'valid'
-        txt: 'valid.txt'
+        txt: '/Users/xfwu/Documents/Stanford/CS230/covid19_cough_classification/lib/dataset/train.txt'   
+    #valid_kwargs:
+       # transform: 'valid'
+       # txt: 'valid.txt'
     test_kwargs:
         transform: 'test'
-        txt: 'test.txt'
+        txt: '/Users/xfwu/Documents/Stanford/CS230/covid19_cough_classification/lib/dataset/test.txt'
 
 training:
     optim: Adam
@@ -32,4 +32,4 @@ model:
 
 testing:
     batch_size: 1
-    ckpt_root: 'Code/Cfos_classifier/ckpt'
+    ckpt_root: 'ckpt'
