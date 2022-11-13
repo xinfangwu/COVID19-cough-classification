@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
-
+from PIL import Image
+import numpy as np
 
 class SimpleNet(nn.Module):
     def __init__(self, num_input_feat=4, num_output_feat=64 ):
@@ -35,7 +36,6 @@ class SimpleNet(nn.Module):
         )
 
     def forward(self, x):
-
         x = self.layer1(x)
         x = self.layer2(x)
         x = self.layer3(x)
@@ -45,4 +45,16 @@ class SimpleNet(nn.Module):
 
 if __name__ == '__main__':
     model = SimpleNet()
+    
+    t = Image.open('/home/ubuntu/figures_spectrogram/detectable_test_id_7439_audio_2020-11-27_at_16_08_53.436.ogg.flac-spectrogram.png')
+    tt = np.array(t) 
+    ttt = torch.FloatTensor(tt)
+    #print(ttt.size())
+    #ttt= torch.permute(ttt, (2, 0, 1))
+    print(ttt.size())
+    a = model.forward(ttt)
+
+
+
+
     print(model)

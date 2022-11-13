@@ -3,7 +3,7 @@ import torch.nn as nn
 from torchvision import  models
 
 class ResNet(nn.Module):
-    def __init__(self, num_classes=2, input_channel= 64 , num_layer=18, use_pretrained=True):
+    def __init__(self, num_classes=2, input_channel= 64 , num_layer=152, use_pretrained=True):
         super(ResNet, self).__init__()
         
         self.num_classes = num_classes
@@ -36,7 +36,7 @@ class ResNet(nn.Module):
 
     def forward(self, x1, x2):
         # input = (128,128,64) & (128,128,64) -> (128, 128, 128)
-        x = torch.concat((x1, x2), -1)
+        x = torch.concat((x1, x2), 1)
         output = self.model(x)
         return output
             
