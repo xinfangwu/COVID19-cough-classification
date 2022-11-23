@@ -1,3 +1,6 @@
 *.pyc
 lib/dataset/test.txt
 lib/dataset/train.txt
+wandb/
+virufy-cdf-iatos-train_for_xinfang.txt
+ckpt/
