@@ -38,15 +38,15 @@ class EncodeResNet(nn.Module):
                                         padding=(1, 1),
                                         bias=False)
         
-        fc = self.model.fc.in_features
-
-        self.model.avgpool = Identity()
-        self.model.fc = Identity()
-
+        # fc = self.model.fc.in_features
+        
+        self.model = nn.Sequential(*list(self.model.children())[:-2])
+        # self.model.avgpool = Identity()
+        # self.model.fc = Identity()
         # add the last layer 
         self.layer5 = nn.Sequential(
             # (256, 256, 512) -> (128, 128, 64)
-            nn.Conv2d(fc, self.num_output_feat, kernel_size=3, stride=2, padding=1, bias=False),
+            nn.Conv2d(512, self.num_output_feat, kernel_size=3, stride=2, padding=1, bias=False),
             nn.BatchNorm2d(num_output_feat),
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=3, stride=1, padding=1)
