@@ -26,11 +26,11 @@ class ResNet(nn.Module):
         # adjust the first layer of model
         self.model.conv1 = nn.Conv2d(self.num_channel * 2,
                                         64,
-                                        kernel_size=(7, 7),
+                                        kernel_size=(3, 3),
                                         stride=(2, 2),
-                                        padding=(3, 3),
+                                        padding=(1, 1),
                                         bias=False)
-        # final fc -> binary 
+        # final fc -> binary in_features=512 
         self.model.fc = nn.Linear(self.model.fc.in_features, self.num_classes)
 
 

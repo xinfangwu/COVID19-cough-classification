@@ -128,19 +128,32 @@ if __name__ == '__main__':
     ## parameters passed from config.py
     DatasetClass = getattr(dataset, config.dataset.name)
     config.dataset.train_kwargs.update(config.dataset.common_kwargs)
+<<<<<<< HEAD
     #config.dataset.valid_kwargs.update(config.dataset.common_kwargs)
     config.dataset.test_kwargs.update(config.dataset.common_kwargs)
     ## parameters updated from .yaml  
     train_dataset = DatasetClass(**config.dataset.train_kwargs)
     #valid_dataset = DatasetClass(**config.dataset.valid_kwargs)
+=======
+    # config.dataset.valid_kwargs.update(config.dataset.common_kwargs)
+    config.dataset.test_kwargs.update(config.dataset.common_kwargs)
+    ## parameters updated from .yaml  
+    train_dataset = DatasetClass(**config.dataset.train_kwargs)
+    # valid_dataset = DatasetClass(**config.dataset.valid_kwargs)
+>>>>>>> 61e3eb9d989caadbaf9dcb03f5d1aea0d4eb11d1
     test_dataset = DatasetClass(**config.dataset.test_kwargs)
 
     # init dataloader
     train_loader = DataLoader(train_dataset, config.training.batch_size,
                                 shuffle=True, num_workers=config.num_workers,
                                 pin_memory=config.cuda)
+<<<<<<< HEAD
     #valid_loader = DataLoader(valid_dataset, 1, num_workers=config.num_workers,
                                 #pin_memory=config.cuda)
+=======
+    # valid_loader = DataLoader(valid_dataset, 1, num_workers=config.num_workers,
+                                # pin_memory=config.cuda)
+>>>>>>> 61e3eb9d989caadbaf9dcb03f5d1aea0d4eb11d1
     test_loader = DataLoader(test_dataset, 1, num_workers=config.num_workers,
                                 pin_memory=config.cuda)
 
@@ -164,6 +177,7 @@ if __name__ == '__main__':
         print(f'EP[{iep}/{config.training.epoch}] train:  ' +
               ' \ '.join([f'{k} {v:.3f}' for k, v in ep_loss.items()]))
 
+<<<<<<< HEAD
         # validating
         #ep_loss = valid_loop(net, valid_loader, config.model.loss_func)
         #print(f'EP[{iep}/{config.training.epoch}] valid:  ' +
@@ -173,6 +187,13 @@ if __name__ == '__main__':
             "precision": ep_loss['precision'],
             "recall":ep_loss['recall']})
         
+=======
+        # # validating
+        # ep_loss = valid_loop(net, valid_loader, config.model.loss_func)
+        # print(f'EP[{iep}/{config.training.epoch}] valid:  ' +
+        #       ' \ '.join([f'{k} {v:.3f}' for k, v in ep_loss.items()]))
+
+>>>>>>> 61e3eb9d989caadbaf9dcb03f5d1aea0d4eb11d1
         # store the model 
         if (iep+1) > 0 and (iep+1)% config.training.save_every == 0:
             pth_name = config.model.modelclass +'/'+ f'ep{iep+1}.pth'
