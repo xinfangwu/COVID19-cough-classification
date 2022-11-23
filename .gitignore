@@ -1,0 +1,3 @@
+*.pyc
+lib/dataset/test.txt
+lib/dataset/train.txt
