@@ -4,3 +4,7 @@ lib/dataset/train.txt
 wandb/
 virufy-cdf-iatos-train_for_xinfang.txt
 ckpt/
+lib/__pycache__/config.cpython-38.pyc
+lib/dataset/__pycache__/__init__.cpython-38.pyc
+lib/model/__pycache__/resnet.cpython-38.pyc
+
