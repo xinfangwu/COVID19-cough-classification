@@ -17,7 +17,7 @@ class EncodeResNet(nn.Module):
         self.num_layer = num_layer
         self.num_input_feat = num_input_feat
         self.num_output_feat = num_output_feat
-
+        
         if self.num_layer == 18:
             self.model = models.resnet18(pretrained=use_pretrained)
         elif num_layer == 34:
@@ -37,13 +37,16 @@ class EncodeResNet(nn.Module):
                                         stride=(2, 2),
                                         padding=(1, 1),
                                         bias=False)
+        
+        fc = self.model.fc.in_features
+
         self.model.avgpool = Identity()
         self.model.fc = Identity()
 
         # add the last layer 
         self.layer5 = nn.Sequential(
             # (256, 256, 512) -> (128, 128, 64)
-            nn.Conv2d(self.model.fc.in_features, self.num_output_feat, kernel_size=3, stride=2, padding=1, bias=False),
+            nn.Conv2d(fc, self.num_output_feat, kernel_size=3, stride=2, padding=1, bias=False),
             nn.BatchNorm2d(num_output_feat),
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=3, stride=1, padding=1)
