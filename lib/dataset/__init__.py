@@ -1,1 +1,1 @@
-from .dataset_cfos import CoughDataset
+from .dataset_cough import CoughDataset

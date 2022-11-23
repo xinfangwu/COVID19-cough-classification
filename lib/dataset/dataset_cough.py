@@ -20,7 +20,7 @@ class CoughDataset(Dataset):
             line = line.strip('\n')
             line = line.rstrip()
             words = line.split('\t')
-            imgs.append((words[0], words[1], words[2]))
+            imgs.append((words[0], words[1],int(words[2])))
         self.imgs = imgs
         self.transform = transform
         self.loader = loader

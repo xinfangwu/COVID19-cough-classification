@@ -1,35 +1,48 @@
 ckpt_root: ckpt
 cuda: True
-num_workers: 8
+num_workers: 2
 
 dataset:
-    name: 'CfosDataset'
-    common_kwargs:
-        image_size: (2048, 2048)
+    name: 'CoughDataset'
+    #common_kwargs:
+<<<<<<< HEAD
+            #image_size: (2048, 2048)
     train_kwargs:
         transform: 'train'
-        txt: 'train.txt'   
-    valid_kwargs:
-        transform: 'valid'
-        txt: 'valid.txt'
+        txt: '/home/ubuntu/COVID19-cough-classification/lib/dataset/train.txt'   
+        #valid_kwargs:
+        #transform: 'valid'
+        #txt: 'valid.txt'
     test_kwargs:
         transform: 'test'
-        txt: 'test.txt'
+        txt: '/home/ubuntu/COVID19-cough-classification/lib/dataset/test.txt'
+=======
+        #image_size: (2048, 2048)
+    train_kwargs:
+        transform: 'train'
+        txt: '/Users/xfwu/Documents/Stanford/CS230/covid19_cough_classification/lib/dataset/train.txt'   
+    #valid_kwargs:
+       # transform: 'valid'
+       # txt: 'valid.txt'
+    test_kwargs:
+        transform: 'test'
+        txt: '/Users/xfwu/Documents/Stanford/CS230/covid19_cough_classification/lib/dataset/test.txt'
+>>>>>>> 61e3eb9d989caadbaf9dcb03f5d1aea0d4eb11d1
 
 training:
     optim: Adam
-    epoch: 50
+    epoch: 100
     batch_size: 20
     save_every: 5
-    lr: 0.0001
+    lr: 0.001
     weight_decay: 0.0001
 
 model:
-    file: lib.model.resnet
-    modelclass: ResNet
+    file: lib.model.CoughModel
+    modelclass: CoughModel
     loss_func: 'CrossEntropyLoss'
 
 
 testing:
     batch_size: 1
-    ckpt_root: 'Code/Cfos_classifier/ckpt'
+    ckpt_root: 'ckpt'

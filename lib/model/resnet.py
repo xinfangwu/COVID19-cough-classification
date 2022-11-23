@@ -3,7 +3,7 @@ import torch.nn as nn
 from torchvision import  models
 
 class ResNet(nn.Module):
-    def __init__(self, num_classes=2, input_channel= 64 , num_layer=18, use_pretrained=True):
+    def __init__(self, num_classes=2, input_channel= 64 , num_layer=152, use_pretrained=True):
         super(ResNet, self).__init__()
         
         self.num_classes = num_classes
@@ -26,17 +26,17 @@ class ResNet(nn.Module):
         # adjust the first layer of model
         self.model.conv1 = nn.Conv2d(self.num_channel * 2,
                                         64,
-                                        kernel_size=(7, 7),
+                                        kernel_size=(3, 3),
                                         stride=(2, 2),
-                                        padding=(3, 3),
+                                        padding=(1, 1),
                                         bias=False)
-        # final fc -> binary 
+        # final fc -> binary in_features=512 
         self.model.fc = nn.Linear(self.model.fc.in_features, self.num_classes)
 
 
     def forward(self, x1, x2):
         # input = (128,128,64) & (128,128,64) -> (128, 128, 128)
-        x = torch.concat((x1, x2), -1)
+        x = torch.concat((x1, x2), 1)
         output = self.model(x)
         return output
             
