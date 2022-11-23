@@ -5,7 +5,6 @@ num_workers: 2
 dataset:
     name: 'CoughDataset'
     #common_kwargs:
-<<<<<<< HEAD
             #image_size: (2048, 2048)
     train_kwargs:
         transform: 'train'
@@ -16,19 +15,6 @@ dataset:
     test_kwargs:
         transform: 'test'
         txt: '/home/ubuntu/COVID19-cough-classification/lib/dataset/test.txt'
-=======
-        #image_size: (2048, 2048)
-    train_kwargs:
-        transform: 'train'
-        txt: '/Users/xfwu/Documents/Stanford/CS230/covid19_cough_classification/lib/dataset/train.txt'   
-    #valid_kwargs:
-       # transform: 'valid'
-       # txt: 'valid.txt'
-    test_kwargs:
-        transform: 'test'
-        txt: '/Users/xfwu/Documents/Stanford/CS230/covid19_cough_classification/lib/dataset/test.txt'
->>>>>>> 61e3eb9d989caadbaf9dcb03f5d1aea0d4eb11d1
-
 training:
     optim: Adam
     epoch: 100
@@ -41,7 +27,6 @@ model:
     file: lib.model.CoughModel
     modelclass: CoughModel
     loss_func: 'CrossEntropyLoss'
-
 
 testing:
     batch_size: 1
