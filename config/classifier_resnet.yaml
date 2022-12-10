@@ -9,19 +9,20 @@ dataset:
     train_kwargs:
         transform: 'train'
         txt: '/home/ubuntu/COVID19-cough-classification/lib/dataset/train.txt'   
-        #valid_kwargs:
-        #transform: 'valid'
-        #txt: 'valid.txt'
-    test_kwargs:
-        transform: 'test'
-        txt: '/home/ubuntu/COVID19-cough-classification/lib/dataset/test.txt'
+    valid_kwargs:
+        transform: 'valid'
+        txt: '/home/ubuntu/COVID19-cough-classification/lib/dataset/valid.txt'
+        #test_kwargs:
+        #transform: 'test'
+        #txt: '/home/ubuntu/COVID19-cough-classification/lib/dataset/test.txt'
 training:
     optim: Adam
-    epoch: 100
-    batch_size: 20
+    epoch: 500
+    batch_size: 256
     save_every: 5
-    lr: 0.01
-    weight_decay: 0.0001
+    lr: 0.001
+    weight_decay: 0.001
+
 
 model:
     file: lib.model.CoughModel

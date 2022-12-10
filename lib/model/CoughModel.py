@@ -23,7 +23,7 @@ class CoughModel(nn.Module):
     def __init__(self,num_classes=2, input_ch=1):
         super(CoughModel, self).__init__()
         self.num_classes = num_classes
-        self.classify = ResNet9()
+        self.classify = ResNet9(use_pretrained=False)
     
     def forward(self, x):
         output = self.classify(x)
