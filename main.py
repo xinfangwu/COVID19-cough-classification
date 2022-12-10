@@ -75,7 +75,7 @@ def valid_loop(model, loader, loss_func):
     model.eval()
     compute_loss = nn.CrossEntropyLoss()
 
-    ave_loss = []
+    ave_loss, preds, trg = [], [], []
     with torch.no_grad():
         for i, batch in tqdm(enumerate(loader, 1), position=1, total=len(loader)):
             for k, v in batch.items():
@@ -87,9 +87,19 @@ def valid_loop(model, loader, loss_func):
             losses = compute_loss(outputs, batch['target'])
         
 
+            # evaluation
+            _, predicted = outputs.max(1)
             ave_loss.append(losses.item())
-    
-    return {'ave_mean':np.mean(ave_loss)}
+            preds.append(predicted.cpu().numpy())
+            trg.append(batch['target'].cpu().numpy())
+
+        acc, precision, recall = evaluate(np.concatenate(preds),
+                                      np.concatenate(trg))
+
+    return {'ave_mean':np.mean(ave_loss),
+            'acc': acc,
+            'precision': precision,
+            'recall': recall} 
 
 if __name__ == '__main__':
 
@@ -136,7 +146,8 @@ if __name__ == '__main__':
     train_loader = DataLoader(train_dataset, config.training.batch_size,
                                 shuffle=True, num_workers=config.num_workers,
                                 pin_memory=config.cuda)
-    valid_loader = DataLoader(valid_dataset, 1, num_workers=config.num_workers,
+    valid_loader = DataLoader(valid_dataset, config.training.batch_size, 
+                                num_workers=config.num_workers,
                                 pin_memory=config.cuda)
     # test_loader = DataLoader(test_dataset, 1, num_workers=config.num_workers,
     #                             pin_memory=config.cuda)
@@ -171,7 +182,10 @@ if __name__ == '__main__':
             "acc":ep_loss['acc'],
             "precision": ep_loss['precision'],
             "recall":ep_loss['recall'],
-            "valid_loss": vep_loss['ave_mean']})
+            "valid_loss": vep_loss['ave_mean'],
+            "valid_acc":vep_loss['acc'],
+            "valid_precision": vep_loss['precision'],
+            "valid_recall":vep_loss['recall']})
 
         # store the model 
         if (iep+1) > 0 and (iep+1)% config.training.save_every == 0:

@@ -1,7 +1,7 @@
 import numpy as np
 from PIL import Image
-import soundfile as sf 
-from scipy import interpolate
+#import soundfile as sf 
+#from scipy import interpolate
 from torch.utils.data import Dataset
 import torchvision.transforms as transforms
 
@@ -66,7 +66,7 @@ class CoughDataset(Dataset):
             imgs.append((words[0], int(words[1])))
         self.imgs = imgs
         self.transform = transform
-        self.loader_spec = spec_2d_input_audio_loader
+        self.loader_spec = loader_spec
         # self.loader_wave =  wave_1d_input_audio_loader
 
         self.trans_train = transforms.Compose([
@@ -74,14 +74,14 @@ class CoughDataset(Dataset):
             transforms.ColorJitter(brightness=0),
             transforms.Resize(size=(150,150)),
             transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+            #transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
         ])
 
         self.trans_test = transforms.Compose([
             transforms.Grayscale(num_output_channels = 1),
             transforms.Resize(size=(150,150)),
             transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+            #transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
         ])
 
     
